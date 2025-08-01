@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Payroll</title>
+  <!-- bootstrap css & icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- css -->
+  <link rel="stylesheet" href="../css/payroll.css" />
+  <!-- charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar bg-dark text-white p-3" style="min-width: 250px; height: 100vh;">
+    <div class="sidebar-header text-center mb-4">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM_Oky3vdE4r06ofy3kTxj6LcLWhYbevSZ3w&s"
+        alt="Logo" />
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link text-white" href="../html/dashboard.html"><i
+            class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="../html/employee data.html"><i
+            class="bi bi-people me-2"></i>Employees</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="../html/attendance.html"><i
+            class="bi bi-calendar-check me-2"></i>Attendance</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="../html/leave request.html"><i
+            class="bi bi-envelope-open me-2"></i>Leave Requests</a></li>
+      <li class="nav-item"><a class="nav-link active text-white fw-bold" href="../html/payroll.html"><i
+            class="bi bi-cash-stack me-2"></i>Payroll</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="../html/performance review.html"><i
+            class="bi bi-graph-up-arrow me-2"></i>Performance Reviews</a></li>
+      <li class="nav-item"><button id="logoutBtn" class="nav-link text-white btn btn-link text-start p-0">
+          <i class="bi bi-box-arrow-right me-2"></i>Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class=" text-black fw-bold text-center mb-4">Employee Payroll</h2>
+      <p>Salary processed accurately based on hours worked and deductions applied.</p>
+      <div class="d-flex align-items-center">
+        <input type="text" id="searchInput" class="form-control me-2" placeholder="Search Employee..." />
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payrollModal">
+          <i class="bi bi-plus-circle me-1"></i> Add Payroll
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-4">
+      <table class="table table-bordered table-striped" id="payrollTable">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Hours</th>
+            <th>Leave</th>
+            <th>Deductions</th>
+            <th>Final Salary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-5">Yearly Salary Summary</h3>
+    <div class="table-responsive mt-3">
+      <table class="table table-bordered table-striped" id="yearlyTable">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Gross Salary</th>
+            <th>Yearly Deductions</th>
+            <th>Net Yearly Salary</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h4>Salary Trends</h4>
+        <canvas id="salaryChart" height="250"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Payroll Modal -->
+  <div class="modal fade" id="payrollModal" tabindex="-1" aria-labelledby="payrollModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="payrollModalLabel">Add Payroll Entry</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addForm">
+            <div class="mb-3">
+              <label for="empSelect" class="form-label">Select Employee</label>
+              <select id="empSelect" class="form-select" required>
+                <option value="">-- Choose Employee --</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Salary</label>
+                <input type="number" class="form-control" id="empSalary"  required />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Hours Worked</label>
+                <input type="number" class="form-control" id="empHours"  required />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Leave Days</label>
+                <input type="number" class="form-control" id="empLeave"  required />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit Payroll</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+    <div id="toastBox" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">You’ve been logged out.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <!-- logout script -->
+  <script type="module">
+    import { setupLogoutButton } from "../js/logout.js";
+    setupLogoutButton(); // default uses #logoutBtn
+  </script>
+  <!-- bootstrap scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- scripts -->
+  <script src="../js/payroll.js"></script>
+  <script src="/ModernTech-Project-2/utils/auth-utils.js"></script>
+</body>
+
+</html>

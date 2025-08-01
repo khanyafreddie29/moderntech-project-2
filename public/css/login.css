@@ -1,0 +1,33 @@
+body {
+  background: linear-gradient(to right, #203a43, #2c5364);
+}
+
+.card {
+  border-radius: 1rem;
+  background-color: #ffffffee;
+}
+
+.btn-primary {
+  background-color: #203a43;
+  border-color: #203a43;
+}
+
+.btn-primary:hover {
+  background-color: #2c5364;
+  border-color: #2c5364;
+}
+
+#errorMessage {
+  font-size: 0.9rem;
+}
+input[type="email"],
+input[type="password"] {
+  background-color: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 14px;
+  transition: 0.3s;
+}

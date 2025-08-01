@@ -1,0 +1,125 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fefefe;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  min-width: 250px;
+  background-color: #343a40;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  padding: 1rem 20px;
+}
+
+.sidebar img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nav-link {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link i {
+  font-size: 1.2rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: #495057;
+  font-weight: bold;
+  color: white;
+}
+
+/* Main content */
+main {
+  margin-left: 250px;
+  padding: 2rem;
+  overflow-y: auto;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+#summaryInsights .card {
+  border-left: 5px solid #0d6efd;
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+#summaryInsights .card small {
+  color: #888;
+}
+
+#greetingText {
+  font-size: 1.75rem;
+}
+
+#clockText {
+  font-family: 'Courier New', monospace;
+}
+
+#topPerformersList img {
+  border: 2px solid #dee2e6;
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+  main {
+    margin-left: 0;
+    height: auto;
+  }
+
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .card h5 {
+    font-size: 1rem;
+  }
+
+  .card p,
+  #summaryInsights .card p {
+    font-size: 0.9rem;
+  }
+}
